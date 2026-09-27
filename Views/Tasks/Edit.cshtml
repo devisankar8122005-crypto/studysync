@@ -1,0 +1,172 @@
+@model TaskItem
+
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<div class="page-head">
+
+    <div>
+        <h1>Edit Task</h1>
+        <p>Update your task details.</p>
+    </div>
+
+</div>
+
+
+<div class="form-card">
+
+    <form asp-action="Edit" method="post">
+
+        <input type="hidden" asp-for="Id" />
+
+
+        <div class="form-grid">
+
+            <!-- Subject -->
+            <div>
+
+                <label>Subject</label>
+
+                <select asp-for="SubjectId"
+                        class="input">
+
+                    <option value="">
+                        No Subject
+                    </option>
+
+                    @foreach (var s in (List<Subject>)ViewBag.Subjects)
+                    {
+                        <option value="@s.Id">
+                            @s.Name
+                        </option>
+                    }
+
+                </select>
+
+            </div>
+
+
+            <!-- Task Name -->
+            <div>
+
+                <label>Task Name</label>
+
+                <input asp-for="TaskName"
+                       class="input" />
+
+            </div>
+
+
+            <!-- Description -->
+            <div class="wide">
+
+                <label>Description</label>
+
+                <textarea asp-for="Description"
+                          class="input"
+                          rows="4">
+                </textarea>
+
+            </div>
+
+
+            <!-- Start Date -->
+            <div>
+
+                <label>Start Date</label>
+
+                <input asp-for="StartDate"
+                       type="date"
+                       class="input" />
+
+            </div>
+
+
+            <!-- Due Date -->
+            <div>
+
+                <label>Due Date</label>
+
+                <input asp-for="DueDate"
+                       type="date"
+                       class="input" />
+
+            </div>
+
+
+            <!-- Priority -->
+            <div>
+
+                <label>Priority</label>
+
+                <select asp-for="Priority"
+                        class="input">
+
+                    <option value="High">
+                        High
+                    </option>
+
+                    <option value="Medium">
+                        Medium
+                    </option>
+
+                    <option value="Low">
+                        Low
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Completed -->
+            <div>
+
+                <label class="checkline">
+
+                    <input asp-for="IsCompleted"
+                           type="checkbox" />
+
+                    Completed
+
+                </label>
+
+            </div>
+
+
+            <!-- Reminder -->
+            <div>
+
+                <label class="checkline">
+
+                    <input asp-for="Reminder"
+                           type="checkbox" />
+
+                    Reminder
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- Buttons -->
+        <div class="form-actions">
+
+            <a href="/Tasks"
+               class="btn secondary">
+                Cancel
+            </a>
+
+            <button type="submit"
+                    class="btn primary">
+                Update Task
+            </button>
+
+        </div>
+
+    </form>
+
+</div>

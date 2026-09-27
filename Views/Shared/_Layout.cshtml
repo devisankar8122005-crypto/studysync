@@ -1,0 +1,259 @@
+@{
+    var currentPath = Context.Request.Path.Value?.ToLower() ?? "";
+
+    var isDarkMode =
+        Context.Session.GetString("DarkMode") == "true";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1" />
+
+    <title>@ViewData["Title"] - StudySync</title>
+
+    <link rel="stylesheet"
+          href="~/css/site.css" />
+
+    @if (isDarkMode)
+    {
+        <style>
+            /* =========================
+               STUDYSYNC DARK MODE
+               ========================= */
+
+            body {
+                background: #121212 !important;
+                color: #f1f1f1 !important;
+            }
+
+            .topbar {
+                background: #1e1e1e !important;
+                color: #ffffff !important;
+                border-bottom: 1px solid #333 !important;
+            }
+
+            .sidebar {
+                background: #1a1a1a !important;
+                color: #ffffff !important;
+                border-right: 1px solid #333 !important;
+            }
+
+            .sidebar a {
+                color: #dddddd !important;
+            }
+
+            .sidebar a:hover,
+            .sidebar a.active {
+                background: #2d2d2d !important;
+                color: #ffffff !important;
+            }
+
+            .main-content {
+                background: #121212 !important;
+                color: #f1f1f1 !important;
+            }
+
+            .panel {
+                background: #1e1e1e !important;
+                color: #f1f1f1 !important;
+                border: 1px solid #333 !important;
+            }
+
+            .stat-card {
+                background: #1e1e1e !important;
+                color: #f1f1f1 !important;
+                border: 1px solid #333 !important;
+            }
+
+            .list-row {
+                background: #1e1e1e !important;
+                color: #f1f1f1 !important;
+                border-color: #333 !important;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: #ffffff !important;
+            }
+
+            p,
+            small,
+            span,
+            label {
+                color: #dddddd;
+            }
+
+            .input,
+            .small-input,
+            select,
+            textarea {
+                background: #2a2a2a !important;
+                color: #ffffff !important;
+                border: 1px solid #555 !important;
+            }
+
+            input::placeholder,
+            textarea::placeholder {
+                color: #aaaaaa !important;
+            }
+
+            .empty {
+                background: #242424 !important;
+                color: #dddddd !important;
+                border-color: #444 !important;
+            }
+
+            .file-picker input[type="file"] {
+                background: #2a2a2a !important;
+                color: #ffffff !important;
+                border-color: #555 !important;
+            }
+
+            .file-name {
+                color: #bbbbbb !important;
+            }
+
+            a {
+                color: #8ab4f8;
+            }
+
+            .logout {
+                color: #ff8a8a !important;
+            }
+        </style>
+    }
+
+</head>
+
+<body>
+
+@if (Context.Session.GetInt32("UserId") != null)
+{
+    <header class="topbar">
+
+        <div class="brand">
+            Study<span>Sync</span>
+        </div>
+
+        <div class="top-user">
+            Hi, @Context.Session.GetString("UserName")
+        </div>
+
+    </header>
+
+
+    <div class="app-shell">
+
+        <aside class="sidebar">
+
+            <!-- Study Planner -->
+            <a href="/Dashboard"
+               class="nav-title">
+                📚 Study Planner
+            </a>
+
+
+            <!-- Dashboard -->
+            <a href="/Dashboard"
+               class="@(currentPath.StartsWith("/dashboard") ? "active" : "")">
+                🏠 Dashboard
+            </a>
+
+
+            <!-- Study Plan -->
+            <a href="/StudyPlan"
+               class="@(currentPath.StartsWith("/studyplan") ? "active" : "")">
+                🗓 Study Plan
+            </a>
+
+
+            <!-- Tasks -->
+            <a href="/Tasks"
+               class="@(currentPath.StartsWith("/tasks") ? "active" : "")">
+                ✅ Tasks
+            </a>
+
+
+            <!-- Calendar -->
+            <a href="/Calendar"
+               class="@(currentPath.StartsWith("/calendar") ? "active" : "")">
+                📅 Calendar
+            </a>
+
+
+            <!-- Subjects -->
+            <a href="/Subjects/Index"
+               class="@(currentPath.StartsWith("/subjects") ? "active" : "")">
+                📘 Subjects
+            </a>
+
+
+            <!-- Notes -->
+            <a href="/Notes"
+               class="@(currentPath.StartsWith("/notes") ? "active" : "")">
+                📝 Notes
+            </a>
+
+
+            <!-- Progress -->
+            <a href="/Progress"
+               class="@(currentPath.StartsWith("/progress") ? "active" : "")">
+                📊 Progress
+            </a>
+
+
+            <!-- Profile -->
+            <a href="/Profile"
+               class="@(currentPath.StartsWith("/profile") ? "active" : "")">
+                👤 Profile
+            </a>
+
+
+            <!-- Settings -->
+            <a href="/Settings"
+               class="@(currentPath.StartsWith("/settings") ? "active" : "")">
+                ⚙️ Settings
+            </a>
+
+
+            <div class="nav-spacer"></div>
+
+
+            <!-- Logout -->
+            <a href="/Account/Logout"
+               class="logout">
+                ↪ Logout
+            </a>
+
+        </aside>
+
+
+        <main class="main-content">
+
+            @RenderBody()
+
+        </main>
+
+    </div>
+}
+else
+{
+    @RenderBody()
+}
+
+
+@await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>

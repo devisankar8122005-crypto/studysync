@@ -1,0 +1,86 @@
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<div class="page-head">
+    <div>
+        <h1>Settings</h1>
+        <p>Manage your StudySync settings.</p>
+    </div>
+</div>
+
+<div class="settings-grid">
+
+    <div class="panel settings-card">
+        <div class="settings-icon">🔐</div>
+        <div>
+            <h3>Change Password</h3>
+            <p>Update your account password.</p>
+            <a href="/Settings/ChangePassword" class="btn">
+                Change Password
+            </a>
+        </div>
+    </div>
+
+    <div class="panel settings-card">
+        <div class="settings-icon">👤</div>
+        <div>
+            <h3>Edit Profile</h3>
+            <p>Update your name and email.</p>
+            <a href="/Settings/EditProfile" class="btn">
+                Edit Profile
+            </a>
+        </div>
+    </div>
+
+    <div class="panel settings-card">
+        <div class="settings-icon">🔔</div>
+        <div>
+            <h3>Reminder Settings</h3>
+            <p>Manage your study reminders.</p>
+            <a href="/Settings/Reminders" class="btn">
+                Reminder Settings
+            </a>
+        </div>
+    </div>
+
+    <div class="panel settings-card">
+        <div class="settings-icon">🌙</div>
+        <div>
+            <h3>Dark Mode</h3>
+            <p>Change the appearance of StudySync.</p>
+            <a href="/Settings/DarkMode" class="btn">
+                Dark Mode
+            </a>
+        </div>
+    </div>
+
+    <div class="panel settings-card">
+        <div class="settings-icon">⚙️</div>
+        <div>
+            <h3>General Preferences</h3>
+            <p>Manage application preferences.</p>
+            <a href="/Settings/Preferences" class="btn">
+                General Preferences
+            </a>
+        </div>
+    </div>
+
+    <div class="panel settings-card">
+        <div class="settings-icon">🚪</div>
+        <div>
+            <h3>Logout</h3>
+            <p>Sign out from your StudySync account.</p>
+            <a href="/Account/Logout" class="btn">
+                Logout
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<div style="margin-top:20px;">
+    <a href="/Profile" class="btn">
+        ← Back to Profile
+    </a>
+</div>

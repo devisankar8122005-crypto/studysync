@@ -1,0 +1,70 @@
+@{
+    ViewData["Title"] = "General Preferences";
+}
+
+<div class="page-head">
+    <div>
+        <h1>⚙️ General Preferences</h1>
+        <p>Manage your StudySync application preferences.</p>
+    </div>
+</div>
+
+<div class="panel" style="max-width:600px;">
+
+    @if (ViewBag.Success != null)
+    {
+        <div class="empty" style="margin-bottom:20px;">
+            @ViewBag.Success
+        </div>
+    }
+
+    <form asp-controller="Settings"
+          asp-action="Preferences"
+          method="post">
+
+        <label>Start Page</label>
+
+        <select name="StartPage" class="input">
+            <option value="Dashboard"
+                    selected="@(ViewBag.StartPage == "Dashboard")">
+                Dashboard
+            </option>
+
+            <option value="Tasks"
+                    selected="@(ViewBag.StartPage == "Tasks")">
+                Tasks
+            </option>
+
+            <option value="StudyPlan"
+                    selected="@(ViewBag.StartPage == "StudyPlan")">
+                Study Plan
+            </option>
+        </select>
+
+        <label>Task View</label>
+
+        <select name="TaskView" class="input">
+            <option value="List"
+                    selected="@(ViewBag.TaskView == "List")">
+                List View
+            </option>
+
+            <option value="Calendar"
+                    selected="@(ViewBag.TaskView == "Calendar")">
+                Calendar View
+            </option>
+        </select>
+
+        <div style="margin-top:20px;">
+            <button type="submit" class="btn primary">
+                Save Preferences
+            </button>
+
+            <a href="/Settings" class="btn">
+                Cancel
+            </a>
+        </div>
+
+    </form>
+
+</div>

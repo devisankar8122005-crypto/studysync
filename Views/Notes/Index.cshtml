@@ -1,0 +1,7 @@
+@model List<Note>
+@{ ViewData["Title"] = "Notes"; }
+<div class="page-head"><div><h1>Notes</h1><p>Keep your important study notes in one place.</p></div></div>
+<div class="two-col">
+<div class="form-card"><h3>Add Note</h3><form asp-action="Create" method="post"><label>Subject</label><select name="SubjectId" class="input"><option value="">No Subject</option>@foreach(var s in (List<Subject>)ViewBag.Subjects){<option value="@s.Id">@s.Name</option>}</select><label>Title</label><input name="Title" class="input" placeholder="Note title" required /><label>Content</label><textarea name="Content" class="input" rows="8" placeholder="Write your notes..." required></textarea><button class="btn primary full">Save Note</button></form></div>
+<div class="notes-grid">@if(!Model.Any()){<div class="empty">No notes yet.</div>} @foreach(var n in Model){<article class="note-card"><div class="note-top"><span class="badge">@((n.Subject?.Name) ?? "General")</span><form asp-action="Delete" asp-route-id="@n.Id" method="post" onsubmit="return confirm('Delete this note?')"><button class="x-btn">×</button></form></div><h3>@n.Title</h3><p>@n.Content</p><small>@n.CreatedAt.ToString("dd MMM yyyy, hh:mm tt")</small></article>}</div>
+</div>

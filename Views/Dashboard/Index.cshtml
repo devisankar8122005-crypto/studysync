@@ -1,0 +1,119 @@
+@model StudySync.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="page-head">
+    <div>
+        <h1>Welcome, @Model.UserName 👋</h1>
+        <p>Here is your study progress overview.</p>
+    </div>
+</div>
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <h4>Total Tasks</h4>
+        <h2>@Model.TotalTasks</h2>
+    </div>
+
+    <div class="stat-card">
+        <h4>Completed</h4>
+        <h2>@Model.CompletedTasks</h2>
+    </div>
+
+    <div class="stat-card">
+        <h4>Pending</h4>
+        <h2>@Model.PendingTasks</h2>
+    </div>
+
+    <div class="stat-card">
+        <h4>Overall Progress</h4>
+        <h2>@Model.Progress%</h2>
+    </div>
+
+</div>
+
+<div class="two-col">
+
+    <div class="panel">
+
+        <h3>Today's Tasks</h3>
+
+        @if (!Model.TodayTasks.Any())
+        {
+            <div class="empty">
+                No tasks for today.
+            </div>
+        }
+        else
+        {
+            @foreach (var task in Model.TodayTasks)
+            {
+                <div class="list-row">
+                    <div>
+                        <b>@task.TaskName</b>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+
+
+    <div class="panel">
+
+        <h3>Upcoming Tasks</h3>
+
+        @if (!Model.UpcomingTasks.Any())
+        {
+            <div class="empty">
+                No upcoming tasks.
+            </div>
+        }
+        else
+        {
+            @foreach (var task in Model.UpcomingTasks)
+            {
+                <div class="list-row">
+                    <div>
+                        <b>@task.TaskName</b>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+
+</div>
+
+
+<div class="panel">
+
+    <h3>Subject Progress</h3>
+
+    @if (!Model.SubjectProgress.Any())
+    {
+        <div class="empty">
+            No subject progress available.
+        </div>
+    }
+    else
+    {
+        @foreach (var subject in Model.SubjectProgress)
+        {
+            <div class="list-row">
+
+                <div>
+                    <b>@subject.SubjectName</b>
+                    <small>
+                        @subject.Completed / @subject.Total completed
+                    </small>
+                </div>
+
+            </div>
+        }
+    }
+
+</div>

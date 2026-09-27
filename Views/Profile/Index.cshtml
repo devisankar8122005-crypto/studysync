@@ -1,0 +1,5 @@
+@model User
+@{ ViewData["Title"] = "Profile"; }
+<div class="page-head"><div><h1>Profile</h1><p>Your student account and study statistics.</p></div></div>
+<div class="profile-card panel"><div class="avatar">@(Model.FullName.Substring(0,1).ToUpper())</div><div><h2>@Model.FullName</h2><p>@Model.Email</p><small>Member since @Model.CreatedAt.ToString("dd MMM yyyy")</small></div></div>
+<div class="stats-grid"><div class="stat-card"><div class="icon blue">📚</div><div><span>Total Tasks</span><strong>@ViewBag.Total</strong></div></div><div class="stat-card"><div class="icon green">✓</div><div><span>Completed Tasks</span><strong>@ViewBag.Completed</strong></div></div></div>

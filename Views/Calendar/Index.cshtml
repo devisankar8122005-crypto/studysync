@@ -1,0 +1,46 @@
+@{ 
+    ViewData["Title"] = "Calendar"; 
+    var selected = (DateTime)ViewBag.SelectedDate; 
+    var tasks = (List<TaskItem>)ViewBag.Tasks; 
+}
+
+<div class="page-head">
+    <div>
+        <h1>Calendar</h1>
+        <p>View tasks by date.</p>
+    </div>
+    <a class="btn primary" href="/Tasks/Create">+ Add Task</a>
+</div>
+
+<div class="calendar-panel panel">
+    <div class="calendar-nav">
+        <a href="/Calendar?date=@selected.AddDays(-1).ToString("yyyy-MM-dd")">‹ Previous</a>
+        <h2>@selected.ToString("dddd, dd MMMM yyyy")</h2>
+        <a href="/Calendar?date=@selected.AddDays(1).ToString("yyyy-MM-dd")">Next ›</a>
+    </div>
+
+    <h3>Tasks on this date</h3>
+
+    @if(!tasks.Any())
+    {
+        <div class="empty">No tasks for this date.</div>
+    }
+
+    @foreach(var t in tasks)
+    {
+        <div class="task-row">
+            <div class="task-info">
+                <b>@t.TaskName</b>
+                <small>@(t.Subject?.Name ?? "No Subject") · @t.Priority</small>
+            </div>
+            <span class="badge @(t.IsCompleted?"success":"warning")">
+                @(t.IsCompleted?"Completed":"Pending")
+            </span>
+        </div>
+    }
+</div>
+
+<!-- Back Button -->
+<div style="margin-top:20px;">
+    <a href="/StudyPlan" class="btn">← Back to Study Plan</a>
+</div>

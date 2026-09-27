@@ -1,0 +1,176 @@
+@model List<StudySync.Models.TaskItem>
+
+@{
+    ViewData["Title"] = "Tasks";
+}
+
+<div class="page-head">
+    <div>
+        <h1>Tasks</h1>
+        <p>Manage your study tasks.</p>
+    </div>
+
+    <a href="/Tasks/Create" class="btn primary">
+        + Add Task
+    </a>
+</div>
+
+<div class="panel">
+
+    <form method="get" class="inline-form">
+
+        <input type="text"
+               name="search"
+               value="@ViewBag.Search"
+               class="input"
+               placeholder="Search task..." />
+
+        <select name="status" class="input">
+            <option value="">All Tasks</option>
+
+            <option value="pending"
+                    selected="@(ViewBag.Status == "pending")">
+                Pending
+            </option>
+
+            <option value="completed"
+                    selected="@(ViewBag.Status == "completed")">
+                Completed
+            </option>
+        </select>
+
+        <button type="submit" class="btn primary">
+            Search
+        </button>
+
+        <a href="/Tasks" class="btn">
+            Clear
+        </a>
+
+    </form>
+
+</div>
+
+
+<div class="panel">
+
+    <h3>Your Tasks</h3>
+
+    @if (!Model.Any())
+    {
+        <div class="empty">
+            No tasks found.
+        </div>
+    }
+    else
+    {
+        @foreach (var task in Model)
+        {
+            <div class="list-row">
+
+                <div>
+
+                    <b>
+                        @if (task.IsCompleted)
+                        {
+                            <span>✅</span>
+                        }
+                        else
+                        {
+                            <span>⬜</span>
+                        }
+
+                        @task.TaskName
+                    </b>
+
+
+                    <small>
+                        Subject:
+                        @(task.Subject?.Name ?? "No subject")
+                    </small>
+
+
+                    <!-- Start Date -->
+                    <small>
+                        📅 Start:
+                        @task.StartDate.ToString("dd-MM-yyyy")
+                    </small>
+
+
+                    <!-- Due Date -->
+                    <small>
+                        ⏰ Due:
+                        @task.DueDate.ToString("dd-MM-yyyy")
+                    </small>
+
+
+                    <!-- Priority -->
+                    <small>
+                        Priority:
+                        @task.Priority
+                    </small>
+
+
+                    <!-- Reminder -->
+                    <small>
+                        🔔 Reminder:
+                        @(task.Reminder ? "Enabled" : "Disabled")
+                    </small>
+
+
+                    @if (!string.IsNullOrWhiteSpace(task.Description))
+                    {
+                        <small>
+                            @task.Description
+                        </small>
+                    }
+
+                </div>
+
+
+                <div class="actions">
+
+                    <form asp-action="Toggle"
+                          method="post">
+
+                        <input type="hidden"
+                               name="id"
+                               value="@task.Id" />
+
+                        <button type="submit"
+                                class="link-btn">
+                            @(task.IsCompleted ? "Pending" : "Complete")
+                        </button>
+
+                    </form>
+
+
+                    <a asp-action="Edit"
+                       asp-route-id="@task.Id"
+                       class="link-btn">
+                        Edit
+                    </a>
+
+
+                    <form asp-action="Delete"
+                          method="post"
+                          onsubmit="return confirm('Delete task?')">
+
+                        <input type="hidden"
+                               name="id"
+                               value="@task.Id" />
+
+                        <button type="submit"
+                                class="danger-btn">
+                            Delete
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+        }
+    }
+
+</div>

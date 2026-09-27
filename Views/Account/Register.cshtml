@@ -1,0 +1,26 @@
+@model RegisterViewModel
+@{ ViewData["Title"] = "Sign Up"; }
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="logo">Study<span>Sync</span></div>
+        <p class="auth-subtitle">Create your student account</p>
+        <h2>Get Started 🚀</h2>
+        <div asp-validation-summary="ModelOnly" class="error"></div>
+        <form asp-action="Register" method="post">
+            <label asp-for="FullName">Full Name</label>
+            <input asp-for="FullName" class="input" placeholder="Enter your name" />
+            <span asp-validation-for="FullName" class="field-error"></span>
+            <label asp-for="Email">Email</label>
+            <input asp-for="Email" class="input" placeholder="you@example.com" />
+            <span asp-validation-for="Email" class="field-error"></span>
+            <label asp-for="Password">Password</label>
+            <input asp-for="Password" class="input" placeholder="Minimum 6 characters" />
+            <span asp-validation-for="Password" class="field-error"></span>
+            <label asp-for="ConfirmPassword">Confirm Password</label>
+            <input asp-for="ConfirmPassword" class="input" placeholder="Re-enter password" />
+            <span asp-validation-for="ConfirmPassword" class="field-error"></span>
+            <button class="btn primary full">Create Account</button>
+        </form>
+        <p class="auth-link">Already have an account? <a asp-action="Login">Login</a></p>
+    </div>
+</div>

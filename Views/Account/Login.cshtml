@@ -1,0 +1,272 @@
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f8ff;
+    }
+
+    .auth-page {
+        min-height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        padding: 30px;
+    }
+
+    /* Moving bubbles */
+
+    .bubble {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.35;
+        animation: float 8s infinite ease-in-out;
+    }
+
+    .bubble1 {
+        width: 90px;
+        height: 90px;
+        background: #bfdbfe;
+        top: 10%;
+        left: 12%;
+    }
+
+    .bubble2 {
+        width: 60px;
+        height: 60px;
+        background: #c7d2fe;
+        top: 65%;
+        left: 8%;
+        animation-delay: 2s;
+    }
+
+    .bubble3 {
+        width: 110px;
+        height: 110px;
+        background: #dbeafe;
+        top: 18%;
+        right: 10%;
+        animation-delay: 1s;
+    }
+
+    .bubble4 {
+        width: 70px;
+        height: 70px;
+        background: #ddd6fe;
+        bottom: 8%;
+        right: 12%;
+        animation-delay: 3s;
+    }
+
+    .bubble5 {
+        width: 40px;
+        height: 40px;
+        background: #bfdbfe;
+        top: 45%;
+        right: 5%;
+        animation-delay: 4s;
+    }
+
+    @@keyframes float {
+        0% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-25px);
+        }
+
+        100% {
+            transform: translateY(0px);
+        }
+    }
+
+    /* Login Card */
+
+    .auth-card {
+        width: 100%;
+        max-width: 420px;
+        background: white;
+        padding: 40px;
+        border-radius: 18px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        position: relative;
+        z-index: 2;
+    }
+
+    .logo {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        color: #2563eb;
+    }
+
+    .logo span {
+        color: #111827;
+    }
+
+    .auth-subtitle {
+        text-align: center;
+        color: #6b7280;
+        font-size: 14px;
+        margin-top: 6px;
+        margin-bottom: 30px;
+    }
+
+    .auth-card h2 {
+        text-align: center;
+        color: #111827;
+        margin-bottom: 8px;
+    }
+
+    .muted {
+        text-align: center;
+        color: #6b7280;
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+    .auth-card label {
+        display: block;
+        margin-top: 16px;
+        margin-bottom: 7px;
+        font-weight: 600;
+        color: #374151;
+    }
+
+    .input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 9px;
+        font-size: 15px;
+        outline: none;
+    }
+
+    .input:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+    }
+
+    .btn.primary {
+        width: 100%;
+        margin-top: 25px;
+        padding: 13px;
+        border: none;
+        border-radius: 9px;
+        background: #2563eb;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn.primary:hover {
+        background: #1d4ed8;
+        transform: translateY(-2px);
+    }
+
+    .auth-link {
+        text-align: center;
+        margin-top: 22px;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+    .auth-link a {
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .auth-link a:hover {
+        text-decoration: underline;
+    }
+
+    .error,
+    .field-error {
+        color: #dc2626;
+        font-size: 13px;
+    }
+</style>
+
+
+<div class="auth-page">
+
+    <!-- Moving Background Bubbles -->
+
+    <div class="bubble bubble1"></div>
+    <div class="bubble bubble2"></div>
+    <div class="bubble bubble3"></div>
+    <div class="bubble bubble4"></div>
+    <div class="bubble bubble5"></div>
+
+
+    <!-- Login Card -->
+
+    <div class="auth-card">
+
+        <div class="logo">
+            Study<span>Sync</span>
+        </div>
+
+        <p class="auth-subtitle">
+            Smart Student Study Planner
+        </p>
+
+        <h2>Welcome Back 👋</h2>
+
+        <p class="muted">
+            Sign in to continue your study journey.
+        </p>
+
+        <div asp-validation-summary="ModelOnly" class="error"></div>
+
+        <form asp-action="Login" method="post">
+
+            <label asp-for="Email"></label>
+
+            <input asp-for="Email"
+                   class="input"
+                   placeholder="Enter your email" />
+
+            <span asp-validation-for="Email"
+                  class="field-error"></span>
+
+
+            <label asp-for="Password"></label>
+
+            <input asp-for="Password"
+                   class="input"
+                   placeholder="Enter your password" />
+
+            <span asp-validation-for="Password"
+                  class="field-error"></span>
+
+
+            <button type="submit" class="btn primary">
+                Login
+            </button>
+
+        </form>
+
+        <p class="auth-link">
+            Don't have an account?
+            <a asp-action="Register">Create account</a>
+        </p>
+
+    </div>
+
+</div>

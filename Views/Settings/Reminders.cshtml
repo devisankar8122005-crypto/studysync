@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "Reminder Settings";
+}
+
+<div class="page-head">
+
+    <div>
+        <h1>🔔 Reminder Settings</h1>
+        <p>Manage your study reminders.</p>
+    </div>
+
+</div>
+
+
+<div class="panel" style="max-width:600px;">
+
+    @if (ViewBag.Success != null)
+    {
+        <div class="empty" style="margin-bottom:20px;">
+            @ViewBag.Success
+        </div>
+    }
+
+
+    <form asp-controller="Settings"
+          asp-action="Reminders"
+          method="post">
+
+        <!-- Enable Reminders -->
+        <label style="display:flex; align-items:center; gap:10px;">
+
+            <input type="checkbox"
+                   name="RemindersEnabled"
+                   value="true"
+                   @(ViewBag.RemindersEnabled == true ? "checked" : "") />
+
+            <span>Enable Study Reminders</span>
+
+        </label>
+
+
+        <br />
+
+
+        <!-- Reminder Time -->
+        <label for="ReminderTime">
+            Reminder Time
+        </label>
+
+        <input type="time"
+               id="ReminderTime"
+               name="ReminderTime"
+               value="@ViewBag.ReminderTime"
+               class="input" />
+
+
+        <!-- Buttons -->
+        <div style="margin-top:20px;">
+
+            <button type="submit"
+                    class="btn primary">
+                Save Reminder Settings
+            </button>
+
+            <a href="/Settings"
+               class="btn">
+                Cancel
+            </a>
+
+        </div>
+
+    </form>
+
+</div>

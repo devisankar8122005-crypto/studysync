@@ -1,0 +1,62 @@
+@model StudySync.Models.User
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div class="page-head">
+    <div>
+        <h1>👤 Edit Profile</h1>
+        <p>Update your StudySync profile details.</p>
+    </div>
+</div>
+
+<div class="panel" style="max-width:600px;">
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="empty" style="margin-bottom:20px;">
+            @ViewBag.Error
+        </div>
+    }
+
+    @if (ViewBag.Success != null)
+    {
+        <div class="empty" style="margin-bottom:20px;">
+            @ViewBag.Success
+        </div>
+    }
+
+    <form asp-controller="Settings"
+          asp-action="EditProfile"
+          method="post">
+
+        <label>Full Name</label>
+
+        <input type="text"
+               name="FullName"
+               value="@Model.FullName"
+               class="input"
+               required />
+
+        <label>Email</label>
+
+        <input type="email"
+               name="Email"
+               value="@Model.Email"
+               class="input"
+               required />
+
+        <div style="margin-top:20px;">
+            <button type="submit" class="btn primary">
+                Save Changes
+            </button>
+
+            <a href="/Settings" class="btn">
+                Cancel
+            </a>
+        </div>
+
+    </form>
+
+</div>

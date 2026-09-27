@@ -1,0 +1,193 @@
+@model List<StudySync.Models.Subject>
+
+@{
+    ViewData["Title"] = "Subjects";
+}
+
+<div class="page-head">
+    <div>
+        <h1>Subjects</h1>
+        <p>Manage your subjects and organize tasks.</p>
+    </div>
+</div>
+
+<div class="two-col">
+
+    <!-- Add Subject -->
+    <div class="panel">
+
+        <h3>Add Subject</h3>
+
+        <form asp-controller="Subjects"
+              asp-action="Create"
+              method="post"
+              enctype="multipart/form-data">
+
+            <div class="inline-form">
+
+                <!-- Subject Name -->
+                <input name="name"
+                       class="input"
+                       placeholder="Subject name"
+                       required />
+
+                <!-- File Upload -->
+                <div style="width:100%; margin-top:10px;">
+
+                    <label for="subjectFile"
+                           style="display:block;
+                                  margin-bottom:8px;
+                                  font-weight:600;">
+                        Subject File
+                    </label>
+
+                    <input type="file"
+                           id="subjectFile"
+                           name="file"
+                           accept=".pdf,.doc,.docx,.txt"
+                           onchange="showFileName(this)"
+                           style="display:block !important;
+                                  visibility:visible !important;
+                                  opacity:1 !important;
+                                  width:100%;
+                                  min-height:45px;
+                                  padding:8px;
+                                  border:1px solid #ccc;
+                                  border-radius:8px;
+                                  background:#ffffff;
+                                  color:#333;
+                                  box-sizing:border-box;
+                                  cursor:pointer;" />
+
+                    <div id="fileName"
+                         style="margin-top:8px;
+                                font-size:14px;
+                                color:#666;">
+                        No file selected
+                    </div>
+
+                </div>
+
+                <!-- Add Button -->
+                <button type="submit"
+                        class="btn primary"
+                        style="margin-top:10px;">
+                    Add
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- Your Subjects -->
+    <div class="panel">
+
+        <h3>Your Subjects</h3>
+
+        @if (!Model.Any())
+        {
+            <div class="empty">
+                No subjects yet.
+            </div>
+        }
+        else
+        {
+            @foreach (var s in Model)
+            {
+                <div class="list-row">
+
+                    <div>
+
+                        <b>📘 @s.Name</b>
+
+                        <small>
+                            Tasks and notes
+                        </small>
+
+                        @if (!string.IsNullOrEmpty(s.FilePath))
+                        {
+                            <small>
+                                📎
+                                <a href="@s.FilePath"
+                                   target="_blank">
+                                    @s.FileName
+                                </a>
+                            </small>
+                        }
+
+                    </div>
+
+
+                    <div class="actions">
+
+                        <!-- Edit -->
+                        <form asp-controller="Subjects"
+                              asp-action="Edit"
+                              method="post"
+                              class="inline-form">
+
+                            <input type="hidden"
+                                   name="id"
+                                   value="@s.Id" />
+
+                            <input name="name"
+                                   value="@s.Name"
+                                   class="small-input" />
+
+                            <button type="submit"
+                                    class="link-btn">
+                                Save
+                            </button>
+
+                        </form>
+
+
+                        <!-- Delete -->
+                        <form asp-controller="Subjects"
+                              asp-action="Delete"
+                              asp-route-id="@s.Id"
+                              method="post"
+                              onsubmit="return confirm('Delete subject?')">
+
+                            <button type="submit"
+                                    class="danger-btn">
+                                Delete
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+            }
+        }
+
+    </div>
+
+</div>
+
+
+<script>
+
+    function showFileName(input) {
+
+        const fileName = document.getElementById("fileName");
+
+        if (input.files && input.files.length > 0) {
+
+            fileName.textContent =
+                "Selected file: " + input.files[0].name;
+
+        }
+        else {
+
+            fileName.textContent =
+                "No file selected";
+
+        }
+    }
+
+</script>

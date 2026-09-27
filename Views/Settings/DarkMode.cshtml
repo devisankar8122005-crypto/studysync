@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "Dark Mode";
+}
+
+<div class="page-head">
+    <div>
+        <h1>🌙 Dark Mode</h1>
+        <p>Change the appearance of StudySync.</p>
+    </div>
+</div>
+
+<div class="panel" style="max-width:600px;">
+
+    @if (ViewBag.Success != null)
+    {
+        <div class="empty" style="margin-bottom:20px;">
+            @ViewBag.Success
+        </div>
+    }
+
+    <form asp-controller="Settings"
+          asp-action="DarkMode"
+          method="post">
+
+        <label>
+            <input type="checkbox"
+                   name="Enabled"
+                   value="true"
+                   @(ViewBag.DarkMode == true ? "checked" : "") />
+
+            Enable Dark Mode
+        </label>
+
+        <div style="margin-top:20px;">
+            <button type="submit" class="btn primary">
+                Save Appearance
+            </button>
+
+            <a href="/Settings" class="btn">
+                Cancel
+            </a>
+        </div>
+
+    </form>
+
+</div>
